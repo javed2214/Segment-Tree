@@ -1,7 +1,7 @@
-// Building Segment Tree from an Array
+// Program to Build Segment Tree from an Array
 // Left Child: 2*index
 // Right Chid: 2*index+1
-// Indexing Starts from 1
+// Indexing Starts from 1 (Root Index: 1)
 
 #include<bits/stdc++.h>
 using namespace std;
