@@ -9,7 +9,7 @@ void buildTree(int *a, int *tree, int start, int end, int index){
 		tree[index] = a[start];
 		return;
 	}
-	int mid = (start + end) >> 1;
+	int mid = (start + (end - start)/2);
 	buildTree(a,tree,start,mid,2*index);
 	buildTree(a,tree,mid+1,end,2*index+1);
 	tree[index] = tree[2*index] + tree[2*index + 1];
