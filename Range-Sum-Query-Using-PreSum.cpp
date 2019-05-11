@@ -22,7 +22,7 @@ int main(){
 		else presum[i]=a[i]+presum[i-1];
 	}
 
-	cout<<"No pf Queries: ";
+	cout<<"No of Queries: ";
 	cin>>q;
 
 	while(q--){
