@@ -1,4 +1,4 @@
-// Updation at Particular Index
+// Updation at a Particular Index in Segment Tree
 									
 #include<bits/stdc++.h>
 using namespace std;
