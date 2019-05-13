@@ -34,12 +34,12 @@ int getSum(int *tree, int n, int qs, int qe){
 
 void updateValueUtil(int *tree, int ss, int se, int i, int diff, int index){
 
-	if(i < ss or i > se) return;
-	tree[index] = tree[index] + diff;
-	if(ss != se){
-		int mid = (ss + (se - ss) / 2);
-		updateValueUtil(tree,ss,mid,i,diff,2*index);
-		updateValueUtil(tree,mid+1,se,i,diff,2*index + 1);
+	if(ss == se) tree[index]+=diff;
+	else{
+		int mid = (ss + (se - ss)/2);
+		if(i >= ss and i <= mid) updateValueUtil(tree,ss,mid,i,diff,2*index);  // If 'i' is in the left child, recurse on the left child
+		else updateValueUtil(tree,mid+1,se,i,diff,2*index+1);  // if 'i' is in the right child, recurse on the right child
+		tree[index] = tree[2*index] + tree[2*index + 1];
 	}
 }
 
