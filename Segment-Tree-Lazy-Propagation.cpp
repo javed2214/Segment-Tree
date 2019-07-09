@@ -3,6 +3,7 @@
 
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 #define MX 101
 
 int tree[MX]={0};
