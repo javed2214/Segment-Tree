@@ -8,11 +8,11 @@ using namespace std;
 int tree[MX]={0};
 int lazy[MX]={0};
 
-void lazyPropagation(int start, int end, int l, int r, int val, int index){
+void lazyUpdate(ll start, ll end, ll l, ll r, ll val, ll index){
 
 	if(lazy[index] != 0){
 
-		tree[index] += lazy[index];
+		tree[index] += lazy[index] * (end - start + 1);
 		
 		if(start != end){
 			lazy[2 * index] += lazy[index];
@@ -27,31 +27,33 @@ void lazyPropagation(int start, int end, int l, int r, int val, int index){
 
 	if(start >= l and end <= r){
 
-		tree[index] += val;
+		tree[index] += val * (end - start + 1);
+
 		if(start != end){
 			lazy[2 * index] += val;
 			lazy[2 * index + 1] += val;
 		}
 		return;
 	}
-	int mid = (start + end) / 2;
-	lazyPropagation(start, mid, l, r, val, 2 * index);
-	lazyPropagation(mid+1, end, l, r, val, 2 * index + 1);
-	tree[index] = tree[2 * index] + tree[2 * index+1];
+	ll mid = (start + end) / 2;
+	lazyUpdate(start, mid, l, r, val, 2 * index);
+	lazyUpdate(mid+1, end, l, r, val, 2 * index + 1);
+	tree[index] = tree[2 * index] + tree[2 * index + 1];
 }
 
-int queryRange(int start, int end, int l, int r, int index){
+ll query(ll start, ll end, ll l, ll r, ll index){
 
 	if(start > end or r < start or l > end)
 		return 0;
 
 	if(lazy[index] != 0){
 
-		tree[index] += lazy[index];
+		tree[index] += lazy[index] * (end - start + 1);
+
 		if(start != end){
 
 			lazy[2 * index] += lazy[index];
-			lazy[2 * index+1] += lazy[index];
+			lazy[2 * index + 1] += lazy[index];
 		}
 		lazy[index] = 0;
 	}
@@ -59,9 +61,9 @@ int queryRange(int start, int end, int l, int r, int index){
 	if(start >= l and end <= r)
 		return tree[index];
 
-	int mid = (start + end) / 2;
-	int s1 = queryRange(start, mid, l, r, 2*index);
-	int s2 = queryRange(mid+1, end, l, r, 2*index+1);
+	ll mid = (start + end) / 2;
+	ll s1 = query(start, mid, l, r, 2 * index);
+	ll s2 = query(mid + 1, end, l, r, 2 * index + 1);
 
 	return (s1 + s2);
 }
@@ -85,8 +87,8 @@ int main(){
 
 	buildTree(a,0,n-1,1);
 	
-	lazyPropagation(0,n-1,1,3,8,1);
-	cout<<queryRange(0,n-1,1,3,1);
+	lazyUpdate(0,n-1,1,3,8,1);
+	cout<<query(0,n-1,1,3,1);
 
 	return 0;
 }
