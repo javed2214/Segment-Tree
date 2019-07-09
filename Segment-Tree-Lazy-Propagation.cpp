@@ -6,8 +6,8 @@ using namespace std;
 #define ll long long
 #define MX 101
 
-int tree[MX]={0};
-int lazy[MX]={0};
+ll tree[MX]={0};
+ll lazy[MX]={0};
 
 void lazyUpdate(ll start, ll end, ll l, ll r, ll val, ll index){
 
@@ -69,13 +69,13 @@ ll query(ll start, ll end, ll l, ll r, ll index){
 	return (s1 + s2);
 }
 
-void buildTree(int *a, int start, int end, int index){
+void buildTree(ll *a, ll start, ll end, ll index){
 
 	if(start == end){
 		tree[index] = a[start];
 		return;
 	}
-	int mid = (start + end) / 2;
+	ll mid = (start + end) / 2;
 	buildTree(a,start,mid,2 * index);
 	buildTree(a,mid+1,end,2 * index + 1);
 	tree[index] = tree[2 * index] + tree[2 * index+1];
@@ -83,8 +83,8 @@ void buildTree(int *a, int start, int end, int index){
 
 int main(){
 
-	int a[]={4,5,2,1,8,7,9,4,5};
-	int n=sizeof(a)/sizeof(int);
+	ll a[]={4,5,2,1,8,7,9,4,5};
+	ll n=sizeof(a)/sizeof(ll);
 
 	buildTree(a,0,n-1,1);
 	
